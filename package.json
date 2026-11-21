@@ -6,12 +6,14 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
+    "worker": "node src/workers/appointmentWorker.js",
     "test": "jest"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mysql2": "^3.11.0"
+    "mysql2": "^3.11.0",
+    "ioredis": "^5.4.1"
   },
   "devDependencies": {
     "jest": "^29.7.0"
