@@ -4,7 +4,6 @@ function notFound(req, res, next) {
   next(new AppError(404, `Route not found: ${req.method} ${req.originalUrl}`));
 }
 
-// Central error handler: every error in the app ends up here.
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
   if (err instanceof AppError) {

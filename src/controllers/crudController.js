@@ -2,8 +2,6 @@ const AppError = require('../utils/AppError');
 const asyncHandler = require('../utils/asyncHandler');
 const { parseId } = require('../utils/validation');
 
-// Builds the five standard handlers for a resource. Business logic stays here;
-// all SQL stays in the model passed in.
 function createCrudController({ model, validate, label, basePath }) {
   async function findOrFail(rawId) {
     const record = await model.findById(parseId(rawId));

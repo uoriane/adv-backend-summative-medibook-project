@@ -1,4 +1,3 @@
-// Single source of truth for every business rule value.
 module.exports = Object.freeze({
   MAX_APPOINTMENTS_PER_DAY: 12,
   SLOT_MINUTES: 30,

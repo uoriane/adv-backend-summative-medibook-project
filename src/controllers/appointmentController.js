@@ -43,6 +43,7 @@ const book = asyncHandler(async (req, res) => {
           patientId,
           doctorId,
           appointmentTime: formatSqlDatetime(slot.date),
+          waitForDay: result.outcome === 'DAY_FULL',
         });
       } catch (error) {
         console.error('Could not add patient to waitlist:', error.message);

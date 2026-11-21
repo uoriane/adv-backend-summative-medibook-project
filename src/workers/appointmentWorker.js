@@ -2,7 +2,7 @@ require('dotenv').config();
 const { redis, connectRedis } = require('../config/redis');
 const appointmentModel = require('../models/appointmentModel');
 const { appendAudit } = require('../services/auditLogger');
-const { promotionsKey, notificationsKey, slotKey, enqueueConfirmation } = require('../services/queueService');
+const { promotionsKey, notificationsKey, slotKey, dayKey, enqueueConfirmation } = require('../services/queueService');
 const { formatSqlDatetime } = require('../utils/datetime');
 
 async function processNotifications() {
@@ -27,12 +27,18 @@ async function processPromotions() {
 
     const job = JSON.parse(promotion[1]);
     const slot = job.slot || formatSqlDatetime(new Date(`${job.date}T09:00:00`));
-    const key = slotKey(job.doctorId, slot);
-    const raw = await redis.lpop(key);
+    let key = slotKey(job.doctorId, slot);
+    let raw = await redis.lpop(key);
+    if (!raw) {
+      key = dayKey(job.doctorId, job.date);
+      raw = await redis.lpop(key);
+    }
     if (!raw) continue;
 
     const waitlisted = JSON.parse(raw);
-    const appointmentTime = new Date(`${slot.slice(0, 10)}T${slot.slice(11, 16)}:00`);
+    const appointmentTime = new Date(
+      `${(waitlisted.appointmentTime || slot).slice(0, 10)}T${(waitlisted.appointmentTime || slot).slice(11, 16)}:00`
+    );
     const result = await appointmentModel.book({
       patientId: waitlisted.patientId,
       doctorId: waitlisted.doctorId,

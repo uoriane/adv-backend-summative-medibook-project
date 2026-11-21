@@ -2,8 +2,6 @@ const { SLOT_MINUTES, WORKING_HOURS } = require('../config/constants');
 
 const DATETIME_PATTERN = /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?$/;
 
-// Parses 'YYYY-MM-DD HH:MM[:SS]' (or with a 'T') as clinic-local time.
-// Returns null for malformed input or dates that do not exist (e.g. 2026-02-30).
 function parseLocalDatetime(value) {
   if (typeof value !== 'string') return null;
   const match = DATETIME_PATTERN.exec(value.trim());
@@ -28,7 +26,6 @@ function reject(status, message) {
   return { valid: false, status, message };
 }
 
-// Malformed input => 400. Well-formed but breaks a booking rule => 422.
 function validateSlot(value, now = new Date()) {
   const date = parseLocalDatetime(value);
   if (!date) {

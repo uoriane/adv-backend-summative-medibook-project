@@ -5,10 +5,14 @@ const dayKey = (doctorId, date) => `medibook:waitlist:day:${doctorId}:${date}`;
 const promotionsKey = 'medibook:promotions';
 const notificationsKey = 'medibook:notifications';
 
-async function addToWaitlist({ patientId, doctorId, appointmentTime }) {
+async function addToWaitlist({ patientId, doctorId, appointmentTime, waitForDay = false }) {
   const redis = await connectRedis();
   const key = slotKey(doctorId, appointmentTime);
   await redis.rpush(key, JSON.stringify({ patientId, doctorId, appointmentTime }));
+  if (waitForDay) {
+    const date = appointmentTime.slice(0, 10);
+    await redis.rpush(dayKey(doctorId, date), JSON.stringify({ patientId, doctorId, appointmentTime }));
+  }
   return key;
 }
 
