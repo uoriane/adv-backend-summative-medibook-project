@@ -1,0 +1,12 @@
+{
+  "title": "Avis sur le cours",
+  "instructions": "Veuillez repondre avec soin aux cinq questions.",
+  "submit": "Envoyer votre avis",
+  "questions": [
+    "Quel sujet de ce cours avez-vous trouve le plus difficile, et pourquoi?",
+    "Decrivez un concept que vous n'avez compris qu'apres les travaux pratiques. Qu'est-ce qui a fait la difference?",
+    "Comment votre approche de la conception des bases de donnees ou des API a-t-elle change depuis le debut du trimestre?",
+    "Que proposeriez-vous pour ameliorer l'enseignement ou l'evaluation de ce cours?",
+    "Comment comptez-vous appliquer a l'avenir les connaissances acquises dans ce cours?"
+  ]
+}
