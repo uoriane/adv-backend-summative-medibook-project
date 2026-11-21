@@ -44,8 +44,8 @@ async function book({ patientId, doctorId, appointmentTime }) {
     //    The UNIQUE (doctor_id, active_slot) key is the last line of defence against a double booking.
     try {
       const [result] = await connection.query(
-        'INSERT INTO appointments (patient_id, doctor_id, appt_datetime, amount_paid) VALUES (?, ?, ?, ?)',
-        [patientId, doctorId, slot, doctor.consultation_fee]
+        'INSERT INTO appointments (patient_id, doctor_id, appt_datetime, amount_paid, active_slot) VALUES (?, ?, ?, ?, ?)',
+        [patientId, doctorId, slot, doctor.consultation_fee, slot]
       );
       return { outcome: 'BOOKED', appointmentId: result.insertId };
     } catch (err) {
@@ -72,7 +72,7 @@ async function cancel(id, { cancelledAt, computeRefund }) {
 
     await connection.query(
       `UPDATE appointments
-       SET status = 'cancelled', refund_amount = ?, cancelled_at = ?
+      SET status = 'cancelled', active_slot = NULL, refund_amount = ?, cancelled_at = ?
        WHERE id = ?`,
       [refundAmount, formatSqlDatetime(cancelledAt), id]
     );
