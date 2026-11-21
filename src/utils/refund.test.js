@@ -1,4 +1,4 @@
-const { calculateRefund } = require('../src/utils/refund');
+const { calculateRefund } = require('./refund');
 
 const HOUR = 60 * 60 * 1000;
 const NOW = new Date(2026, 11, 1, 12, 0, 0);

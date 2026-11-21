@@ -64,4 +64,23 @@ function validateDoctor(body = {}) {
   return { name, specialty, consultation_fee: Number(fee), room };
 }
 
-module.exports = { parseId, validatePatient, validateDoctor };
+function validateBookingInput(body = {}) {
+  const errors = [];
+  if (!Number.isInteger(body.patientId) || body.patientId < 1) {
+    errors.push('patientId must be a positive integer');
+  }
+  if (!Number.isInteger(body.doctorId) || body.doctorId < 1) {
+    errors.push('doctorId must be a positive integer');
+  }
+  if (typeof body.apptDatetime !== 'string' || body.apptDatetime.trim() === '') {
+    errors.push('apptDatetime is required');
+  }
+  failIfInvalid(errors);
+  return {
+    patientId: body.patientId,
+    doctorId: body.doctorId,
+    apptDatetime: body.apptDatetime.trim(),
+  };
+}
+
+module.exports = { parseId, validatePatient, validateDoctor, validateBookingInput };

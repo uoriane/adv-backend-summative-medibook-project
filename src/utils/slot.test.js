@@ -1,4 +1,4 @@
-const { validateSlot, parseLocalDatetime } = require('../src/utils/slot');
+const { validateSlot, parseLocalDatetime } = require('./slot');
 
 const NOW = new Date(2026, 11, 1, 12, 0, 0);
 

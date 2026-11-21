@@ -1,4 +1,4 @@
-const { formatSqlDatetime, dayBounds } = require('../src/utils/datetime');
+const { formatSqlDatetime, dayBounds } = require('./datetime');
 
 describe('datetime helpers', () => {
   test('formatSqlDatetime pads every part', () => {
