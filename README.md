@@ -2,7 +2,7 @@
 
 MediBook is an Express/MySQL/Redis backend for booking and cancelling clinic appointments.
 
-Video Walkthrough
+# Video Walkthrough
 
 [Watch the video walkthrough](https://youtu.be/G8pP90HZzqo?si=7YcW0DFqik3oRIf9)
 
